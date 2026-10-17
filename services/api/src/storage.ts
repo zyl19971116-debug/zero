@@ -1,0 +1,4 @@
+import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import { config } from './config.js';
+function client(){if(!config.S3_ENDPOINT||!config.S3_BUCKET||!config.S3_ACCESS_KEY_ID||!config.S3_SECRET_ACCESS_KEY)throw new Error('OBJECT_STORAGE_NOT_CONFIGURED');return new S3Client({endpoint:config.S3_ENDPOINT,region:config.S3_REGION,forcePathStyle:true,credentials:{accessKeyId:config.S3_ACCESS_KEY_ID,secretAccessKey:config.S3_SECRET_ACCESS_KEY}})}
+export async function storeImage(key:string,bytes:Uint8Array,contentType='image/png'){await client().send(new PutObjectCommand({Bucket:config.S3_BUCKET!,Key:key,Body:bytes,ContentType:contentType,CacheControl:'public,max-age=31536000,immutable'}));if(!config.S3_PUBLIC_BASE_URL)throw new Error('OBJECT_PUBLIC_URL_NOT_CONFIGURED');return `${config.S3_PUBLIC_BASE_URL.replace(/\/$/,'')}/${key}`}

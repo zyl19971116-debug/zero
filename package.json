@@ -1,0 +1,12 @@
+{
+  "name": "relic-zero",
+  "private": true,
+  "workspaces": ["services/api"],
+  "scripts": {
+    "test": "npm --workspace services/api test",
+    "typecheck": "npm --workspace services/api run typecheck",
+    "db:generate": "npm --workspace services/api run db:generate",
+    "db:migrate": "npm --workspace services/api run db:migrate",
+    "db:seed": "npm --workspace services/api run db:seed"
+  }
+}

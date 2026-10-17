@@ -1,0 +1,11 @@
+import { createHash, randomBytes } from 'node:crypto';
+import { SignJWT, jwtVerify } from 'jose';
+import { SiweMessage } from 'siwe';
+import { db } from './db.js';
+import { config } from './config.js';
+const key=new TextEncoder().encode(config.SESSION_SECRET);
+export const normalizeWallet=(v:string)=>v.toLowerCase();
+export async function issueNonce(walletAddress:string){const nonce=randomBytes(16).toString('hex');await db.walletNonce.create({data:{walletAddress:normalizeWallet(walletAddress),nonceHash:createHash('sha256').update(nonce).digest('hex'),expiresAt:new Date(Date.now()+5*60_000)}});return nonce}
+export async function verifySiwe(message:string,signature:string){const parsed=new SiweMessage(message);if(new URL(config.APP_ORIGIN).host!==parsed.domain)throw new Error('DOMAIN_MISMATCH');if(!parsed.expirationTime||new Date(parsed.expirationTime)<=new Date())throw new Error('MESSAGE_EXPIRED');if(!config.ALLOWED_CHAIN_IDS.includes(parsed.chainId))throw new Error('CHAIN_NOT_ALLOWED');const nonceHash=createHash('sha256').update(parsed.nonce).digest('hex');const nonce=await db.walletNonce.findUnique({where:{nonceHash}});if(!nonce||nonce.consumedAt||nonce.expiresAt<=new Date())throw new Error('NONCE_INVALID');const result=await parsed.verify({signature,domain:parsed.domain,nonce:parsed.nonce,time:new Date().toISOString()});if(!result.success)throw new Error('SIGNATURE_INVALID');const walletAddress=normalizeWallet(parsed.address);return db.$transaction(async tx=>{await tx.walletNonce.update({where:{id:nonce.id},data:{consumedAt:new Date()}});return tx.user.upsert({where:{walletAddress},create:{walletAddress,lastLoginAt:new Date()},update:{lastLoginAt:new Date()}})})}
+export const signSession=(userId:string,walletAddress:string)=>new SignJWT({walletAddress}).setProtectedHeader({alg:'HS256'}).setSubject(userId).setIssuedAt().setExpirationTime('8h').sign(key);
+export async function readSession(token?:string){if(!token)return null;try{return(await jwtVerify(token,key)).payload}catch{return null}}

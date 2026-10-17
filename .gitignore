@@ -1,0 +1,8 @@
+node_modules/
+services/api/dist/
+.env
+.env.*
+!.env.example
+!.env.production.example
+coverage/
+.sites-runtime/

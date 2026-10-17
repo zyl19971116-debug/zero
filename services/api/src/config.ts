@@ -1,0 +1,3 @@
+import { z } from 'zod';
+const schema=z.object({DATABASE_URL:z.string().min(1),REDIS_URL:z.string().min(1),SESSION_SECRET:z.string().min(32),APP_ORIGIN:z.string().url(),API_ORIGIN:z.string().url(),ALLOWED_CHAIN_IDS:z.string().transform(v=>v.split(',').map(Number)),AI_API_KEY:z.string().optional(),AI_BASE_URL:z.string().url().default('https://api.openai.com/v1'),AI_TEXT_MODEL:z.string().optional(),AI_IMAGE_MODEL:z.string().optional(),S3_ENDPOINT:z.string().url().optional(),S3_REGION:z.string().default('auto'),S3_BUCKET:z.string().optional(),S3_ACCESS_KEY_ID:z.string().optional(),S3_SECRET_ACCESS_KEY:z.string().optional(),S3_PUBLIC_BASE_URL:z.string().url().optional(),PORT:z.coerce.number().default(8787)});
+export const config=schema.parse(process.env);

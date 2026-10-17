@@ -1,0 +1,198 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum RecordStatus {
+  ACTIVE
+  DISABLED
+  ARCHIVED
+}
+enum ExpeditionStatus {
+  QUEUED
+  GENERATING
+  COMPLETED
+  FAILED
+}
+enum JobStatus {
+  QUEUED
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+enum ImageStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+enum Rarity {
+  COMMON
+  RARE
+  EPIC
+  LEGENDARY
+  MYTHIC
+}
+enum AnalysisStatus {
+  QUEUED
+  PROCESSING
+  COMPLETED
+  FAILED
+}
+
+model User {
+  id String @id @default(cuid())
+  walletAddress String @unique @db.VarChar(42)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  lastLoginAt DateTime?
+  expeditions Expedition[]
+  relics Relic[]
+  progress UserProgress[]
+  jobs AiJob[]
+  @@index([createdAt])
+}
+
+model WalletNonce {
+  id String @id @default(cuid())
+  walletAddress String @db.VarChar(42)
+  nonceHash String @unique
+  expiresAt DateTime
+  consumedAt DateTime?
+  createdAt DateTime @default(now())
+  @@index([walletAddress, expiresAt])
+}
+
+model Civilization {
+  id String @id @default(cuid())
+  slug String @unique
+  name String
+  description String
+  imageUrl String?
+  status RecordStatus @default(ACTIVE)
+  createdAt DateTime @default(now())
+  regions Region[]
+  relics Relic[]
+  progress UserProgress[]
+}
+
+model Region {
+  id String @id @default(cuid())
+  slug String @unique
+  civilizationId String
+  civilization Civilization @relation(fields:[civilizationId], references:[id], onDelete:Restrict)
+  name String
+  description String
+  difficulty String
+  imageUrl String?
+  unlockRequirement Json
+  discoveryPool Json
+  status RecordStatus @default(ACTIVE)
+  expeditions Expedition[]
+  relics Relic[]
+  @@index([civilizationId, status])
+}
+
+model Expedition {
+  id String @id @default(cuid())
+  userId String
+  user User @relation(fields:[userId], references:[id], onDelete:Restrict)
+  regionId String
+  region Region @relation(fields:[regionId], references:[id], onDelete:Restrict)
+  status ExpeditionStatus @default(QUEUED)
+  rarity Rarity?
+  resultRelicId String? @unique
+  idempotencyKey String
+  randomnessCommitment String?
+  randomnessAudit Json?
+  rarityConfigVersion String?
+  startedAt DateTime @default(now())
+  completedAt DateTime?
+  errorCode String?
+  relic Relic?
+  @@unique([userId, idempotencyKey])
+  @@index([userId, status, startedAt])
+  @@index([regionId, status])
+}
+
+model Relic {
+  id String @id @default(cuid())
+  userId String
+  user User @relation(fields:[userId], references:[id], onDelete:Restrict)
+  expeditionId String @unique
+  expedition Expedition @relation(fields:[expeditionId], references:[id], onDelete:Restrict)
+  civilizationId String
+  civilization Civilization @relation(fields:[civilizationId], references:[id], onDelete:Restrict)
+  regionId String
+  region Region @relation(fields:[regionId], references:[id], onDelete:Restrict)
+  name String
+  category String
+  rarity Rarity
+  material String
+  energySignature String
+  description String
+  lore String
+  imageUrl String?
+  imageStatus ImageStatus @default(PENDING)
+  metadataVersion Int @default(1)
+  createdAt DateTime @default(now())
+  analyses RelicAnalysis[]
+  jobs AiJob[]
+  @@index([userId, createdAt])
+  @@index([civilizationId, rarity])
+  @@index([regionId, rarity])
+}
+
+model RelicAnalysis {
+  id String @id @default(cuid())
+  relicId String
+  relic Relic @relation(fields:[relicId], references:[id], onDelete:Cascade)
+  status AnalysisStatus @default(QUEUED)
+  provider String?
+  model String?
+  reportJson Json?
+  createdAt DateTime @default(now())
+  completedAt DateTime?
+  @@index([relicId, status])
+}
+
+model UserProgress {
+  id String @id @default(cuid())
+  userId String
+  user User @relation(fields:[userId], references:[id], onDelete:Cascade)
+  civilizationId String
+  civilization Civilization @relation(fields:[civilizationId], references:[id], onDelete:Restrict)
+  discoveryCount Int @default(0)
+  archiveProgress Decimal @default(0) @db.Decimal(5,2)
+  updatedAt DateTime @updatedAt
+  @@unique([userId, civilizationId])
+  @@index([civilizationId, discoveryCount])
+}
+
+model AiJob {
+  id String @id @default(cuid())
+  userId String
+  user User @relation(fields:[userId], references:[id], onDelete:Cascade)
+  relicId String?
+  relic Relic? @relation(fields:[relicId], references:[id], onDelete:Cascade)
+  type String
+  status JobStatus @default(QUEUED)
+  attempts Int @default(0)
+  errorCode String?
+  dedupeKey String @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@index([status, createdAt])
+  @@index([userId, status])
+}
+
+model SystemConfig {
+  key String @id
+  value Json
+  updatedAt DateTime @updatedAt
+}
