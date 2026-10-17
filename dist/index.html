@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#07090b" />
+  <title>RELIC ZERO — AI Civilization Exploration</title>
+  <meta name="description" content="Explore lost civilizations, analyze mysterious artifacts, and preserve their stories." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="noise"></div>
+  <header class="nav" id="topnav">
+    <a class="brand" href="#home" aria-label="Relic Zero home"><span class="brand-mark"><i></i></span><span><b>RELIC ZERO</b><small>AI CIVILIZATION EXPLORATION</small></span></a>
+    <button class="menu-btn" aria-label="Toggle navigation">☰</button>
+    <nav class="links" aria-label="Primary navigation">
+      <a href="#home">HOME</a><a href="#explore">EXPLORE</a><a href="#relics">RELICS</a><a href="#archive">ARCHIVE</a><a href="#leaderboard">LEADERBOARD</a><a href="#token">TOKEN</a><a href="#about">ABOUT</a>
+    </nav>
+    <div class="nav-actions"><button class="icon-btn" aria-label="Language">◎</button><button class="wallet-btn" id="walletBtn"><span>▣</span><span id="walletLabel">Connect Wallet</span></button></div>
+  </header>
+
+  <main>
+    <section class="view active" id="home">
+      <div class="hero">
+        <div class="hero-bg"></div><div class="hero-vignette"></div><div class="particles" aria-hidden="true"></div>
+        <div class="hero-copy reveal">
+          <p class="eyebrow">THE FIRST SIGNAL HAS ARRIVED</p>
+          <h1>RELIC <em>ZERO</em></h1>
+          <h2>EXPLORE THE UNKNOWN<br>UNLOCK THE NEXT WORLD</h2>
+          <p class="lede">Discover mysterious relics from lost civilizations, powered by AI. Every artifact holds a story, and every discovery changes the world.</p>
+          <div class="hero-actions"><a class="primary" href="#explore">START EXPLORING <span>→</span></a><button class="secondary" id="trailerBtn"><span>▷</span> WATCH TRAILER <small>COMING SOON</small></button></div>
+        </div>
+        <div class="relic-stage" aria-label="Animated ancient relic"><div class="halo"></div><img src="assets/relic/hero-relic.png" alt="Floating obsidian relic wrapped in golden energy rings"></div>
+        <aside class="featured glass reveal">
+          <div class="panel-head"><span>FEATURED RELIC</span><span class="panel-arrows">‹ &nbsp; ›</span></div>
+          <div class="empty-art"><span>✦</span><small>NO RELIC RECORDED</small></div>
+          <h3>THE ARCHIVE IS SILENT</h3><p>No verified discoveries exist yet. Connect a wallet and complete an expedition to awaken the archive.</p>
+          <dl><div><dt>CIVILIZATION</dt><dd>UNAVAILABLE</dd></div><div><dt>TYPE</dt><dd>UNAVAILABLE</dd></div><div><dt>RARITY</dt><dd>UNAVAILABLE</dd></div><div><dt>DISCOVERED BY</dt><dd>—</dd></div></dl>
+          <a class="panel-cta disabled" href="#relics">VIEW RELICS <span>→</span></a>
+        </aside>
+        <div class="stats glass"><div><strong>—</strong><span>EXPLORERS</span></div><div><strong>—</strong><span>RELICS DISCOVERED</span></div><div><strong>—</strong><span>CIVILIZATIONS</span></div><div><strong>—</strong><span>ARCHIVE RECORDS</span></div><p>LIVE DATABASE UNAVAILABLE</p></div>
+      </div>
+      <section class="portals" aria-label="Platform features">
+        <a href="#explore" class="portal"><div class="portal-img p1"></div><div><h3>EXPLORE</h3><p>Traverse mysterious regions and discover hidden relics.</p></div><b>→</b></a>
+        <a href="#analysis" class="portal"><div class="portal-img p2"></div><div><h3>AI ANALYSIS</h3><p>Decode material, culture, energy, and forgotten history.</p></div><b>→</b></a>
+        <a href="#relics" class="portal"><div class="portal-img p3"></div><div><h3>COLLECT</h3><p>Build a verified collection across ancient civilizations.</p></div><b>→</b></a>
+        <a href="#archive" class="portal"><div class="portal-img p4"></div><div><h3>UNLOCK HISTORY</h3><p>Piece together a universe through connected discoveries.</p></div><b>→</b></a>
+      </section>
+    </section>
+
+    <section class="view inner" id="explore">
+      <div class="inner-hero explore-hero"><p class="eyebrow">EXPEDITION TERMINAL</p><h1>CHOOSE YOUR DESCENT</h1><p>Five regions wait beyond the signal. Outcomes are created server-side; this preview never fabricates a discovery.</p></div>
+      <div class="region-grid" id="regionGrid"></div>
+      <div class="expedition-console glass"><div><p class="eyebrow">ACTIVE EXPEDITION</p><h2 id="expeditionTitle">NO REGION SELECTED</h2><p id="expeditionStatus">Connect an injected EIP-1193 wallet, then choose a region.</p></div><button class="primary" id="expeditionBtn" disabled>START EXPEDITION</button></div>
+    </section>
+
+    <section class="view inner" id="analysis"><div class="inner-hero lab-hero"><p class="eyebrow">RELIC INTELLIGENCE</p><h1>AI ANALYSIS</h1><p>Structured artifact reports are generated server-side and labeled as fiction within the RELIC ZERO universe.</p></div><div class="analysis-layout"><div class="scanner glass"><div class="scan-orb"><span>✦</span></div><p>SELECT A DISCOVERED RELIC</p><small>No eligible relics in this collection.</small></div><div class="stages glass"><p class="eyebrow">ANALYSIS PIPELINE</p><ol><li>Scan</li><li>Material interpretation</li><li>Civilization classification</li><li>Energy signature analysis</li><li>Historical reconstruction</li><li>Final report</li></ol><div class="notice">AI provider not configured in this preview. No synthetic report has been created.</div></div></div></section>
+
+    <section class="view inner" id="relics"><div class="inner-hero museum-hero"><p class="eyebrow">THE MUSEUM</p><h1>RELIC COLLECTION</h1><p>Verified artifacts, discovery provenance, and AI analysis in one living archive.</p></div><div class="toolbar glass"><input aria-label="Search relics" placeholder="Search relics, civilizations, owners…"><select aria-label="Rarity"><option>All rarities</option><option>Common</option><option>Rare</option><option>Epic</option><option>Legendary</option><option>Mythic</option></select><select aria-label="Sort"><option>Latest discoveries</option><option>Rarity</option><option>Oldest</option></select></div><div class="empty-state glass"><span>◇</span><h2>NO RELICS DISCOVERED</h2><p>The museum opens when the first verified expedition completes.</p><a class="primary" href="#explore">BEGIN AN EXPEDITION →</a></div></section>
+
+    <section class="view inner" id="archive"><div class="inner-hero archive-hero"><p class="eyebrow">CIVILIZATION INDEX</p><h1>THE ARCHIVE</h1><p>Each recovered relic reveals another fragment of a lost civilization.</p></div><div class="civilizations" id="civilizations"></div></section>
+
+    <section class="view inner" id="leaderboard"><div class="inner-hero"><p class="eyebrow">EXPLORER RECORDS</p><h1>LEADERBOARD</h1><p>Rankings include verified, unreversed database records only.</p></div><div class="tabs" id="leaderTabs"><button class="active">Most Relics</button><button>Legendary</button><button>Civilizations</button><button>Archive</button><button>Latest</button></div><div class="empty-state glass"><span>≋</span><h2>NO RANKINGS YET</h2><p>There are no verified explorer records to rank. We never seed the board with invented activity.</p></div></section>
+
+    <section class="view inner" id="token"><div class="inner-hero token-hero"><p class="eyebrow">ECOSYSTEM</p><h1>RELIC TOKEN</h1><p>Infrastructure is being prepared. No token contract, sale, price, or market data is published.</p></div><div class="token-grid"><article class="glass"><p class="eyebrow">STATUS</p><h2>NOT DEPLOYED</h2><p>Contract address</p><code>UNAVAILABLE</code><div class="notice">Always verify future addresses through official RELIC ZERO channels.</div></article><article class="glass"><p class="eyebrow">UTILITY ROADMAP</p><ul><li>Advanced expedition access</li><li>Cosmetic relic displays</li><li>Community governance</li><li>Premium archive features</li><li>Limited exploration events</li></ul><small>Basic exploration will not require token ownership.</small></article></div></section>
+
+    <section class="view inner" id="profile"><div class="inner-hero"><p class="eyebrow">EXPLORER IDENTITY</p><h1>MY COLLECTION</h1><p>Your wallet-scoped discoveries, reports, mint receipts, and achievements.</p></div><div class="profile-card glass"><div class="profile-sigil">R0</div><div><p class="eyebrow">CONNECTED WALLET</p><h2 id="profileWallet">NOT CONNECTED</h2><p id="profileChain">Connect your wallet to load private collection data.</p></div></div><div class="profile-grid"><div class="glass"><strong>—</strong><span>Owned relics</span></div><div class="glass"><strong>—</strong><span>AI reports</span></div><div class="glass"><strong>—</strong><span>NFT mints</span></div><div class="glass"><strong>—</strong><span>Achievements</span></div></div></section>
+
+    <section class="view inner" id="about"><div class="inner-hero"><p class="eyebrow">THE SIGNAL</p><h1>ABOUT RELIC ZERO</h1><p>A fictional science-fantasy universe where AI-assisted storytelling, verifiable ownership, and collaborative exploration meet.</p></div><div class="about-grid"><article><span>01</span><h2>DISCOVER</h2><p>Expeditions use authoritative server-side outcomes and versioned rarity configurations.</p></article><article><span>02</span><h2>INTERPRET</h2><p>AI expands predetermined facts into structured, validated fictional lore.</p></article><article><span>03</span><h2>PRESERVE</h2><p>On-chain commitments can verify provenance without storing sensitive data.</p></article></div></section>
+  </main>
+  <footer><a class="brand" href="#home"><span class="brand-mark"><i></i></span><span><b>RELIC ZERO</b><small>THE ARCHIVE REMEMBERS</small></span></a><p>Fictional universe · Testnet-first · No financial promises</p><p>© 2026 RELIC ZERO</p></footer>
+  <div class="toast" id="toast" role="status"></div>
+  <div class="wallet-popover glass" id="walletMenu"><button data-action="profile">View profile</button><button data-action="copy">Copy address</button><button data-action="switch">Switch network</button><button data-action="disconnect">Disconnect</button></div>
+  <script src="app.js"></script>
+</body>
+</html>
