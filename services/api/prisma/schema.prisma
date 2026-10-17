@@ -55,7 +55,18 @@ model User {
   relics Relic[]
   progress UserProgress[]
   jobs AiJob[]
+  sessions Session[]
   @@index([createdAt])
+}
+
+model Session {
+  id String @id
+  userId String
+  user User @relation(fields:[userId], references:[id], onDelete:Cascade)
+  expiresAt DateTime
+  revokedAt DateTime?
+  createdAt DateTime @default(now())
+  @@index([userId, expiresAt])
 }
 
 model WalletNonce {
