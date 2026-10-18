@@ -58,3 +58,22 @@
 .wallet-popover{right:5.2vw;top:70px}
 @media(max-width:1150px){.nav>.brand{min-width:220px}.links{gap:14px}.wallet-btn{min-width:150px;padding:12px 16px}}
 @media(max-width:780px){.nav{height:76px;padding:0 16px}.nav>.brand{min-width:auto}.links{top:76px}.wallet-btn{min-width:0;max-width:128px;padding:10px}}
+
+/* Frontend-only expedition gameplay */
+.expedition-overlay,.discovery-modal{position:fixed;z-index:120;inset:0;display:none;place-items:center;background:radial-gradient(circle at 50% 45%,#2b210fdd,#020304f5 65%);backdrop-filter:blur(14px)}
+.expedition-overlay.show,.discovery-modal.show{display:grid;animation:viewIn .35s ease both}
+.expedition-cinematic{text-align:center;width:min(760px,92vw)}
+.expedition-cinematic h2{font:500 clamp(25px,3vw,46px) var(--serif);letter-spacing:.12em;margin:20px 0;color:var(--bright)}
+.scan-core{width:min(430px,70vw);height:min(430px,52vh);position:relative;display:grid;place-items:center;margin:auto}
+.scan-core img{max-width:78%;height:90%;object-fit:contain;mix-blend-mode:screen;filter:brightness(.65) drop-shadow(0 0 28px #d9ad5999);animation:float 4s ease-in-out infinite}
+.scan-core i{position:absolute;width:88%;aspect-ratio:1;border:1px solid var(--gold);border-radius:50%;box-shadow:0 0 35px #d9ad5944;animation:spin 8s linear infinite}
+.scan-core i:nth-child(2){width:66%;border-style:dashed;animation-direction:reverse;animation-duration:5s}
+.stage-track{display:flex;gap:10px;justify-content:center;margin:20px}.stage-track i{width:54px;height:2px;background:#ffffff20}.stage-track i.active{background:var(--bright);box-shadow:0 0 12px var(--gold)}
+.discovery-card{position:relative;width:min(620px,92vw);max-height:92vh;overflow:auto;padding:30px;text-align:center;border-color:var(--rarity,#aeb5bd);box-shadow:0 0 55px color-mix(in srgb,var(--rarity,#aeb5bd) 35%,transparent)}
+.discovery-card>img{width:100%;height:min(36vh,300px);object-fit:contain;mix-blend-mode:screen}.discovery-card h2{font:500 clamp(28px,4vw,48px) var(--serif);margin:10px}.discovery-card>p:not(.kicker){font-size:11px;line-height:1.65;color:var(--muted)}
+.discovery-card dl{font-size:9px;text-align:left}.discovery-card dl div{display:flex;justify-content:space-between;padding:7px;border-bottom:1px solid #ffffff15}.discovery-card dd{margin:0}.modal-close{position:absolute;right:12px;top:10px;border:0;background:none;color:#ccc;font-size:28px;cursor:pointer}.discovery-actions{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:20px}
+.rarity-common{--rarity:#aeb5bd}.rarity-rare{--rarity:#55baf5}.rarity-epic{--rarity:#b56cff}.rarity-legendary{--rarity:#f4c55e}.rarity-mythic{--rarity:#ff5ac8}.relic-card[class*="rarity-"]{border-color:color-mix(in srgb,var(--rarity) 55%,transparent);box-shadow:inset 0 -40px 70px color-mix(in srgb,var(--rarity) 9%,transparent)}
+.art-1{filter:hue-rotate(18deg) saturate(1.1)}.art-2{filter:hue-rotate(42deg) saturate(1.2)}.art-3{filter:hue-rotate(85deg)}.art-4{filter:hue-rotate(145deg)}.art-5{filter:hue-rotate(205deg) saturate(1.35)}.art-6{filter:hue-rotate(270deg)}.art-7{filter:hue-rotate(318deg) saturate(1.2)}
+.analysis-report #analysisMessage{max-height:280px;overflow:auto}.analysis-report #analysisMessage b{color:var(--bright);font:400 16px var(--serif)}
+.leader-table .table-state>div{text-align:center}.leader-table .table-state strong{color:var(--bright);font:400 22px var(--serif)}.leader-table .table-state p{font:10px/1.6 var(--sans);color:var(--muted)}
+@media(max-width:780px){.discovery-card{padding:22px 16px}.discovery-actions .btn{width:100%;justify-content:center}.scan-core{height:42vh}.expedition-cinematic h2{font-size:22px}.stage-track i{width:34px}}
