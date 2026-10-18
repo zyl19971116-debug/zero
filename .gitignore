@@ -9,3 +9,5 @@ coverage/
 railway-audit-*.json
 outputs/
 test-results/
+
+.vercel

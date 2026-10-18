@@ -1,4 +1,13 @@
-*
-!dist/
-!dist/**
-!vercel.json
+node_modules/
+outputs/
+services/
+tests/
+test-results/
+.git/
+.sites-runtime/
+.env
+.env.*
+*.md
+playwright.config.mjs
+railway.*.toml
+Dockerfile.*
