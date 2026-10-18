@@ -43,6 +43,32 @@ test('wallet chooser connects a selected installed wallet', async ({ page }) => 
   await expect(page.locator('#walletChooser')).not.toHaveClass(/show/);
 });
 
+test('missing branded wallet opens its browser extension listing', async ({ page }) => {
+  await page.goto('/#home');
+  await page.evaluate(() => {
+    window.__openedWalletLinks = [];
+    window.open = url => window.__openedWalletLinks.push(url);
+  });
+  await page.locator('#walletBtn').click();
+  await page.locator('[data-wallet="okx"]').click();
+  await expect(page.locator('#toast')).toContainText('browser extension store');
+  const links = await page.evaluate(() => window.__openedWalletLinks);
+  expect(links).toEqual(['https://chromewebstore.google.com/detail/okx-wallet/mcohilncbfahbmgdjkbpemcciiolgcge']);
+});
+
+test('generic browser wallet does not redirect to a website', async ({ page }) => {
+  await page.goto('/#home');
+  await page.evaluate(() => {
+    window.__openedWalletLinks = [];
+    window.open = url => window.__openedWalletLinks.push(url);
+  });
+  await page.locator('#walletBtn').click();
+  await page.locator('[data-wallet="browser"]').click();
+  await expect(page.locator('#toast')).toContainText('No compatible browser wallet extension');
+  const links = await page.evaluate(() => window.__openedWalletLinks);
+  expect(links).toEqual([]);
+});
+
 test('connected wallet completes and persists a local expedition', async ({ page }) => {
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
