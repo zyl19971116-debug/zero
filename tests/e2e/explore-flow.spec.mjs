@@ -14,7 +14,7 @@ test('disconnected expedition button asks for a wallet', async ({ page }) => {
   await page.locator('#expeditionBtn').click();
   await expect(page.locator('#toast')).toContainText('Connect your wallet to explore');
   await expect(page.locator('#walletChooser')).toHaveClass(/show/);
-  await expect(page.locator('.wallet-options button')).toHaveCount(5);
+  await expect(page.locator('.wallet-options button')).toHaveCount(6);
   expect(errors).toEqual([]);
 });
 
