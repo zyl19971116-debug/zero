@@ -7,3 +7,5 @@ services/api/dist/
 coverage/
 .sites-runtime/
 railway-audit-*.json
+outputs/
+test-results/

@@ -77,3 +77,11 @@
 .analysis-report #analysisMessage{max-height:280px;overflow:auto}.analysis-report #analysisMessage b{color:var(--bright);font:400 16px var(--serif)}
 .leader-table .table-state>div{text-align:center}.leader-table .table-state strong{color:var(--bright);font:400 22px var(--serif)}.leader-table .table-state p{font:10px/1.6 var(--sans);color:var(--muted)}
 @media(max-width:780px){.discovery-card{padding:22px 16px}.discovery-actions .btn{width:100%;justify-content:center}.scan-core{height:42vh}.expedition-cinematic h2{font-size:22px}.stage-track i{width:34px}}
+
+/* Click-safety: cinematic decoration never participates in hit testing. */
+.hero-bg,.hero-shade,.page-bg,.page-shade,.hero-relic,.aura,.noise{pointer-events:none}
+.actions{position:absolute;z-index:6;left:5.3vw;top:372px}
+.region{appearance:none;width:100%;font:inherit;text-align:left}
+.region>span{font-size:8px;color:#c4a969;line-height:1.6}
+.expedition-bar{position:relative;z-index:3}
+@media(max-width:720px){#home .actions{position:relative;left:auto;top:auto}}

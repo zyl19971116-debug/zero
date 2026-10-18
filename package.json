@@ -4,9 +4,13 @@
   "workspaces": ["services/api"],
   "scripts": {
     "test": "npm --workspace services/api test",
+    "test:e2e": "playwright test",
     "typecheck": "npm --workspace services/api run typecheck",
     "db:generate": "npm --workspace services/api run db:generate",
     "db:migrate": "npm --workspace services/api run db:migrate",
     "db:seed": "npm --workspace services/api run db:seed"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.1"
   }
 }
