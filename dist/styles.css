@@ -35,3 +35,9 @@
 
 @media(max-width:780px){#home.active{display:block;min-height:100svh}#home .hero{height:auto;min-height:1480px;padding:96px 18px 0;display:flex;flex-direction:column;overflow:hidden}#home .hero-copy{position:relative;left:auto;right:auto;top:auto;width:auto;text-align:center;z-index:5;order:1}#home .hero-copy h1{font-size:clamp(48px,15vw,66px);white-space:normal;margin:12px 0 18px}#home .hero-copy h2{font-size:clamp(17px,5vw,22px);margin-bottom:18px}#home .hero-copy>p:last-child{font-size:14px;line-height:1.65;margin:0 auto;max-width:520px}#home .hero-relic{position:relative;left:auto;top:auto;width:100%;height:410px;order:2;margin:18px 0 4px}#home .actions{position:relative;left:auto;top:auto;order:3;justify-content:center;flex-wrap:wrap;margin:0 0 22px}#home .actions .btn{min-height:50px}#home .featured{position:relative;left:auto;right:auto;top:auto;width:100%;order:4;margin:0 auto;padding:18px;max-width:520px}#home .featured-image{height:190px}#home .stats{position:relative;left:auto;bottom:auto;order:5;margin:16px auto 0;width:100%;max-width:520px;display:grid;grid-template-columns:1fr 1fr;padding:10px}#home .stats div{min-width:0;height:58px;border-bottom:1px solid #ffffff18}#home .stats p{grid-column:1/-1;text-align:center}#home .feature-strip{grid-template-columns:1fr;padding:20px 18px 32px;gap:14px}#home .feature-card{min-height:clamp(205px,31svh,270px)}}
 @media(max-width:1439px) and (min-width:781px){#home .hero-relic{top:78px;height:calc(100% - 108px)}}
+
+/* Preserve the panorama's native proportions while cropping each scene. */
+#home.active{grid-template-rows:minmax(560px,1fr) clamp(195px,13.5vw,280px)}
+#home .fc-img{background-size:400% auto;background-repeat:no-repeat;background-position-y:center}
+#home .feature-card{min-height:195px}
+@media(max-width:780px){#home .feature-card{min-height:clamp(240px,72vw,300px)}#home .fc-img{background-size:400% auto}}
