@@ -13,6 +13,8 @@ test('disconnected expedition button asks for a wallet', async ({ page }) => {
   await expect(page.locator('#expeditionBtn')).toBeEnabled();
   await page.locator('#expeditionBtn').click();
   await expect(page.locator('#toast')).toContainText('Connect your wallet to explore');
+  await expect(page.locator('#walletChooser')).toHaveClass(/show/);
+  await expect(page.locator('.wallet-options button')).toHaveCount(5);
   expect(errors).toEqual([]);
 });
 
@@ -22,6 +24,23 @@ test('token UI is removed and the legacy route redirects home', async ({ page })
   await expect(page.locator('.links a')).toHaveCount(6);
   await expect(page.locator('.links')).not.toContainText('TOKEN');
   await expect(page.locator('#token')).toHaveCount(0);
+});
+
+test('wallet chooser connects a selected installed wallet', async ({ page }) => {
+  await page.addInitScript(address => {
+    const provider = {
+      isMetaMask: true,
+      request: async ({ method }) => method === 'eth_accounts' ? [] : method === 'eth_requestAccounts' ? [address] : method === 'eth_chainId' ? '0x1' : null,
+      on: () => {}
+    };
+    window.ethereum = { ...provider, providers: [provider] };
+  }, wallet);
+  await page.goto('/#home');
+  await page.locator('#walletBtn').click();
+  await expect(page.locator('#walletChooser')).toHaveClass(/show/);
+  await page.locator('[data-wallet="metamask"]').click();
+  await expect(page.locator('#walletLabel')).toContainText('0x1234');
+  await expect(page.locator('#walletChooser')).not.toHaveClass(/show/);
 });
 
 test('connected wallet completes and persists a local expedition', async ({ page }) => {
