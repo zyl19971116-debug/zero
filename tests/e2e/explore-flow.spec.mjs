@@ -16,6 +16,14 @@ test('disconnected expedition button asks for a wallet', async ({ page }) => {
   expect(errors).toEqual([]);
 });
 
+test('token UI is removed and the legacy route redirects home', async ({ page }) => {
+  await page.goto('/#token');
+  await expect(page).toHaveURL(/#home$/);
+  await expect(page.locator('.links a')).toHaveCount(6);
+  await expect(page.locator('.links')).not.toContainText('TOKEN');
+  await expect(page.locator('#token')).toHaveCount(0);
+});
+
 test('connected wallet completes and persists a local expedition', async ({ page }) => {
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
