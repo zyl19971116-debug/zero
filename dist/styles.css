@@ -41,3 +41,8 @@
 #home .fc-img{background-size:400% auto;background-repeat:no-repeat;background-position-y:center}
 #home .feature-card{min-height:195px}
 @media(max-width:780px){#home .feature-card{min-height:clamp(240px,72vw,300px)}#home .fc-img{background-size:400% auto}}
+
+/* Reference-matched feature tiles: consistent 4:3 frames at every width. */
+#home.active{grid-template-rows:minmax(560px,1fr) auto}
+#home .feature-card{height:auto;min-height:0;aspect-ratio:4/3}
+@media(max-width:780px){#home .feature-card{height:auto;min-height:0;aspect-ratio:4/3}}
