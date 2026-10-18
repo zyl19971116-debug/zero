@@ -46,3 +46,15 @@
 #home.active{grid-template-rows:minmax(560px,1fr) auto}
 #home .feature-card{height:auto;min-height:0;aspect-ratio:4/3}
 @media(max-width:780px){#home .feature-card{height:auto;min-height:0;aspect-ratio:4/3}}
+
+/* Match the production predecessor's wallet/header placement. */
+.nav{height:76px;padding:0 5.2vw}
+.nav>.brand{min-width:280px}
+.links{gap:28px}
+.links a{padding:30px 0}
+.links a.active:after{bottom:17px}
+.nav-actions{gap:16px}
+.wallet-btn{min-width:170px;padding:14px 22px}
+.wallet-popover{right:5.2vw;top:70px}
+@media(max-width:1150px){.nav>.brand{min-width:220px}.links{gap:14px}.wallet-btn{min-width:150px;padding:12px 16px}}
+@media(max-width:780px){.nav{height:76px;padding:0 16px}.nav>.brand{min-width:auto}.links{top:76px}.wallet-btn{min-width:0;max-width:128px;padding:10px}}
